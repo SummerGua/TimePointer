@@ -3,13 +3,14 @@
 const { startTime, endTime } = defineProps<{ startTime: Date; endTime: Date }>()
 let progress = $ref(0)
 let borderOpacity = $ref(0.2)
-
+let currentTime = $ref(new Date().toLocaleTimeString())
 const getPercent = () => {
   if(startTime >= endTime || new Date() < startTime || new Date() > endTime) {
     borderOpacity = 0
     return
   }
 
+  currentTime = new Date().toLocaleTimeString()
   const totalTime = endTime.getTime() - startTime.getTime()
   const toCurrentTime = new Date().getTime() - startTime.getTime()
   progress = (toCurrentTime / totalTime) * 100
@@ -32,6 +33,7 @@ setInterval(getPercent, 1000)
       <span>{{ endTime.toLocaleTimeString("zh-CN", { hour: '2-digit', minute: '2-digit' }) }}</span>
     </div>
     <div
+      :title="currentTime"
       absolute
       border-l-3
       h-10 w-3
