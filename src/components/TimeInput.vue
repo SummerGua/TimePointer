@@ -1,10 +1,8 @@
 <script setup lang="ts">
 const emit = defineEmits(['newStartTime', 'newEndTime'])
 
-const { startTime, endTime } = defineProps<{
-  startTime: string | Date;
-  endTime: string | Date
-}>()
+const startTime: string | Date = $ref()
+const endTime: string | Date = $ref()
 
 const changeTime = (x: number) => {
   if (x === 0) {

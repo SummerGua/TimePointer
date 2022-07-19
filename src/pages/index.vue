@@ -19,7 +19,7 @@ onBeforeMount(() => {
     defaultStartTime = localStartTime
     defaultEndTime = localEndTime
   } else {
-    // storage
+    // no storage
     defaultStartTime = new Date(new Date().toLocaleDateString())
     defaultEndTime = new Date(new Date(new Date().toLocaleDateString()).getTime() + 23*60*60*1000 + 59*60*1000)
 }
@@ -45,7 +45,7 @@ const giveWarningMessage = (warningMessage: iWarningMessage) => {
     </h2>
     <h3 mb-5>Show current time position by selecting two time points.</h3>
     <Warning :message="toGiveMessage" self-center m-5 />
-    <TimeInput :start-time="defaultStartTime" :end-time="defaultEndTime" @new-end-time="updateEndTime" @new-start-time="updateStartTime" />
+    <TimeInput @new-end-time="updateEndTime" @new-start-time="updateStartTime" />
     <TimePointer
       @time-warn="giveWarningMessage"
       :start-time="new Date(defaultStartTime)"
