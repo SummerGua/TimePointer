@@ -1,12 +1,19 @@
 <script setup lang="ts">
-const emit = defineEmits(['newTime'])
-const startTime: string = $ref()
-const endTime: string = $ref()
+const emit = defineEmits(['newStartTime', 'newEndTime'])
+
+const { startTime, endTime } = defineProps<{
+  startTime: string | Date;
+  endTime: string | Date
+}>()
+
 const changeTime = (x: number) => {
-  x === 0 ?
-  localStorage.setItem('startTime', new Date(startTime).toLocaleString())
-  : localStorage.setItem('endTime', new Date(endTime).toLocaleString())
-  emit('newTime', {startTime, endTime})
+  if (x === 0) {
+    localStorage.setItem('startTime', startTime.toString())
+    emit('newStartTime', { time: startTime })
+  } else {
+    localStorage.setItem('endTime', endTime.toString())
+    emit('newEndTime', { time: endTime })
+  }
 }
 </script>
 
@@ -14,7 +21,8 @@ const changeTime = (x: number) => {
   <div flex flex-row justify-between self-center mb-5 w-130>
     <div>
       Start:
-      <input @change="changeTime(0)" v-model="startTime" type="datetime-local" border-rounded w-49 border-solid border-1>
+      <input @change="changeTime(0)" v-model="startTime" type="datetime-local" border-rounded w-49 border-solid
+        border-1>
     </div>
     <div>
       End:

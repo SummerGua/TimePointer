@@ -1,18 +1,37 @@
 <script setup lang="ts">
+const emit = defineEmits(['timeWarn'])
 
-const { startTime, endTime } = defineProps<{ startTime: Date; endTime: Date }>()
+const { startTime, endTime } = defineProps<{
+  startTime: Date; endTime: Date
+}>()
+
+
 let progress = $ref(0)
 let borderOpacity = $ref(0.2)
 let currentTime = $ref(new Date().toLocaleTimeString())
+
 const getPercent = () => {
-  if(startTime >= endTime || new Date() < startTime || new Date() > endTime) {
+  if(startTime.getTime() >= endTime.getTime()) {
     borderOpacity = 0
+    emit('timeWarn', { message: 'Error: start time > end time' })
+    return
+  }
+  if(new Date().getTime() < startTime.getTime()) {
+    borderOpacity = 0
+    emit('timeWarn', { message: 'Not time yet' })
+    return
+  }
+  if(new Date().getTime() > endTime.getTime()) {
+    borderOpacity = 0
+    emit('timeWarn', { message: 'Time\'s up' })
     return
   }
 
+  emit('timeWarn', { message: '' })
+
   currentTime = new Date().toLocaleTimeString()
-  const totalTime = endTime.getTime() - startTime.getTime()
-  const toCurrentTime = new Date().getTime() - startTime.getTime()
+  const totalTime: number = endTime.getTime() - startTime.getTime()
+  const toCurrentTime: number = new Date().getTime() - startTime.getTime()
   progress = (toCurrentTime / totalTime) * 100
 
   if (borderOpacity === 0.2) {
@@ -37,7 +56,6 @@ setInterval(getPercent, 1000)
       absolute
       border-l-3
       h-10 w-3
-      cursor-pointer
       :style="{ left: `${progress}%`, borderColor: `rgba(0,0,0,${borderOpacity})` }"
     >
     &nbsp;

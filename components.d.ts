@@ -7,13 +7,10 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Counter: typeof import('./src/components/Counter.vue')['default']
-    Footer: typeof import('./src/components/Footer.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TimeInput: typeof import('./src/components/TimeInput.vue')['default']
-    TimePicked: typeof import('./src/components/TimePicked.vue')['default']
-    TimePicker: typeof import('./src/components/TimePicker.vue')['default']
     TimePointer: typeof import('./src/components/TimePointer.vue')['default']
+    Warning: typeof import('./src/components/Warning.vue')['default']
   }
 }
