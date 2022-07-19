@@ -10,18 +10,18 @@ let progress = $ref(0)
 let borderOpacity = $ref(0.2)
 let currentTime = $ref(new Date().toLocaleTimeString()) // for title
 
-const getPercent = (startMS: number, endMS: number, currentMS: number) => {
-  if(startMS >= endMS) {
+const getPercent = (startMs: number, endMs: number, currentMs: number) => {
+  if(startMs >= endMs) {
     borderOpacity = 0
     emit('timeWarn', { message: 'Error: start time > end time' })
     return
   }
-  if(currentMS < startMS) {
+  if(currentMs < startMs) {
     borderOpacity = 0
     emit('timeWarn', { message: 'Not time yet' })
     return
   }
-  if(currentMS > endMS) {
+  if(currentMs > endMs) {
     borderOpacity = 0
     emit('timeWarn', { message: 'Time\'s up' })
     return
@@ -30,8 +30,8 @@ const getPercent = (startMS: number, endMS: number, currentMS: number) => {
   emit('timeWarn', { message: '' })
 
   currentTime = new Date().toLocaleTimeString()
-  const totalTime: number = endMS - startMS
-  const toCurrentTime: number = currentMS - startMS
+  const totalTime: number = endMs - startMs
+  const toCurrentTime: number = currentMs - startMs
   progress = (toCurrentTime / totalTime) * 100
 
   if (borderOpacity === 0.2) {
@@ -40,7 +40,7 @@ const getPercent = (startMS: number, endMS: number, currentMS: number) => {
     borderOpacity = 0.2
   }
 }
-
+// TO-DO: GRID LAYOUT
 getPercent(startTime.getTime(), endTime.getTime(), new Date().getTime())
 setInterval(() => {
   getPercent(startTime.getTime(), endTime.getTime(), new Date().getTime())
@@ -48,17 +48,23 @@ setInterval(() => {
 </script>
 
 <template>
-  <div w-150 relative text-center flex flex-col justify-center>
-    <div w-150 h-5 bg-gray-100 flex justify-between>
-      <span>{{ startTime.toLocaleTimeString("zh-CN", { hour: '2-digit', minute: '2-digit' }) }}</span>
-      <span>{{ endTime.toLocaleTimeString("zh-CN", { hour: '2-digit', minute: '2-digit' }) }}</span>
+  <div w-35 relative text-center flex flex-col justify-center>
+    <div w-25 h-120 bg-gray-100 flex flex-col relative self-center>
+      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T08:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
+      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T09:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
+      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T10:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
+      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T11:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
+      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T12:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
+      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T13:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
+      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T14:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
+      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T15:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
     </div>
     <div
       :title="currentTime"
       absolute
-      border-l-3
-      h-10 w-3
-      :style="{ left: `${progress}%`, borderColor: `rgba(0,0,0,${borderOpacity})` }"
+      border-t-3
+      h-3 w-35
+      :style="{ top: `${progress}%`, borderColor: `rgba(0,0,0,${borderOpacity})` }"
     >
     &nbsp;
     </div>

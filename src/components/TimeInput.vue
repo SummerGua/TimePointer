@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const emit = defineEmits(['newStartTime', 'newEndTime'])
 
-const startTime: string | Date = $ref()
-const endTime: string | Date = $ref()
+let startTime: string | Date = $ref()
+let endTime: string | Date = $ref()
 
 const changeTime = (x: number) => {
   if (x === 0) {
@@ -13,6 +13,20 @@ const changeTime = (x: number) => {
     emit('newEndTime', { time: endTime })
   }
 }
+
+onBeforeMount(() => {
+  const localStartTime = localStorage.getItem('startTime')
+  const localEndTime = localStorage.getItem('endTime')
+
+  if(localStartTime && localEndTime) {
+    startTime = localStartTime
+    endTime = localEndTime
+  } else {
+    // no storage
+    startTime = new Date(new Date().toLocaleDateString())
+    endTime = new Date(new Date(new Date().toLocaleDateString()).getTime() + 23*60*60*1000 + 59*60*1000)
+}
+})
 </script>
 
 <template>
