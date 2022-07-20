@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { schedule } from '~/utils/mock';
 const emit = defineEmits(['timeWarn'])
 
 const { startTime, endTime } = defineProps<{
@@ -40,7 +41,7 @@ const getPercent = (startMs: number, endMs: number, currentMs: number) => {
     borderOpacity = 0.2
   }
 }
-// TO-DO: GRID LAYOUT
+
 getPercent(startTime.getTime(), endTime.getTime(), new Date().getTime())
 setInterval(() => {
   getPercent(startTime.getTime(), endTime.getTime(), new Date().getTime())
@@ -50,14 +51,14 @@ setInterval(() => {
 <template>
   <div w-35 relative text-center flex flex-col justify-center>
     <div w-25 h-120 bg-gray-100 flex flex-col relative self-center>
-      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T08:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
-      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T09:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
-      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T10:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
-      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T11:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
-      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T12:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
-      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T13:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
-      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T14:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
-      <lecture :day-start="startTime" :day-end="endTime" :lecture-start="new Date(`2022-07-19T15:00`)" :subject="`Linear Algebra`" :teacher="`Mr.Mike`" :room="`Build.1`" :duration-ms="40*60*1000" />
+      <lecture
+        v-for="(item) in schedule" :key="item.lectureStart.toString()"
+        :day-start="startTime" :day-end="endTime"
+        :lecture-start="item.lectureStart"
+        :subject="item.subject"
+        :teacher="item.teacher"
+        :room="item.room"
+        :duration-ms="item.durationMs" />
     </div>
     <div
       :title="currentTime"

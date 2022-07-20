@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { checkStorage, getLocalStorage } from '~/utils/checkStorage';
+
 interface iNewTime {
   time: Date
 }
@@ -12,12 +14,10 @@ let defaultEndTime: Date | string = $ref(new Date())
 let toGiveMessage: string = $ref('')
 
 onBeforeMount(() => {
-  const localStartTime = localStorage.getItem('startTime')
-  const localEndTime = localStorage.getItem('endTime')
-
-  if(localStartTime && localEndTime) {
-    defaultStartTime = localStartTime
-    defaultEndTime = localEndTime
+  if(checkStorage('startTime', 'endTime')) {
+    const {startTime, endTime} = getLocalStorage('startTime', 'endTime')
+    defaultStartTime = startTime
+    defaultEndTime = endTime
   } else {
     // no storage
     defaultStartTime = new Date(new Date().toLocaleDateString())

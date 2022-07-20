@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { checkStorage, getLocalStorage } from '~/utils/checkStorage';
+
 const emit = defineEmits(['newStartTime', 'newEndTime'])
 
 let startTime: string | Date = $ref()
@@ -15,12 +17,8 @@ const changeTime = (x: number) => {
 }
 
 onBeforeMount(() => {
-  const localStartTime = localStorage.getItem('startTime')
-  const localEndTime = localStorage.getItem('endTime')
-
-  if(localStartTime && localEndTime) {
-    startTime = localStartTime
-    endTime = localEndTime
+  if(checkStorage('startTime', 'endTime')) {
+    ({startTime, endTime} = getLocalStorage('startTime', 'endTime'))
   } else {
     // no storage
     startTime = new Date(new Date().toLocaleDateString())
