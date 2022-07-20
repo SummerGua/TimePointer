@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { schedule } from '~/utils/mock';
-const emit = defineEmits(['timeWarn'])
-
+import { schedule } from '~/utils/mock'
 const { startTime, endTime } = defineProps<{
-  startTime: Date; endTime: Date
+  startTime: Date
+  endTime: Date
 }>()
 
+const emit = defineEmits(['timeWarn'])
 
 let progress = $ref(0)
 let borderOpacity = $ref(0.2)
 let currentTime = $ref(new Date().toLocaleTimeString()) // for title
 
 const getPercent = (startMs: number, endMs: number, currentMs: number) => {
-  if(startMs >= endMs) {
+  if (startMs >= endMs) {
     borderOpacity = 0
     emit('timeWarn', { message: 'Error: start time > end time' })
     return
   }
-  if(currentMs < startMs) {
+  if (currentMs < startMs) {
     borderOpacity = 0
     emit('timeWarn', { message: 'Not time yet' })
     return
   }
-  if(currentMs > endMs) {
+  if (currentMs > endMs) {
     borderOpacity = 0
     emit('timeWarn', { message: 'Time\'s up' })
     return
@@ -35,11 +35,11 @@ const getPercent = (startMs: number, endMs: number, currentMs: number) => {
   const toCurrentTime: number = currentMs - startMs
   progress = (toCurrentTime / totalTime) * 100
 
-  if (borderOpacity === 0.2) {
+  if (borderOpacity === 0.2)
     borderOpacity = 0.8
-  } else {
+
+  else
     borderOpacity = 0.2
-  }
 }
 
 getPercent(startTime.getTime(), endTime.getTime(), new Date().getTime())
@@ -58,7 +58,8 @@ setInterval(() => {
         :subject="item.subject"
         :teacher="item.teacher"
         :room="item.room"
-        :duration-ms="item.durationMs" />
+        :duration-ms="item.durationMs"
+      />
     </div>
     <div
       :title="currentTime"

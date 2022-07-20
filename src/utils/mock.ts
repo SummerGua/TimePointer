@@ -6,63 +6,21 @@ interface iLecture {
   durationMs: number
 }
 
-const today = '2022-07-20'
+const TODAY = '2022-07-20'
 
 export const schedule: iLecture[] = [
   {
-    lectureStart: new Date(`${today}T08:00`),
-    subject: `LinearAlgebra`,
-    teacher: `Mr.Mike`,
-    room: `Room101, Build1`,
-    durationMs: 40*60*1000
+    lectureStart: new Date(`${TODAY}T09:40`),
+    subject: `智慧教室应用研究`,
+    teacher: `陆志海`,
+    room: `电教楼204`,
+    durationMs: 140*60*1000
   },
   {
-    lectureStart: new Date(`${today}T09:00`),
-    subject: `LinearAlgebra`,
-    teacher: `Mr.Mike`,
-    room: `Room101, Build1`,
-    durationMs: 40*60*1000
-  },
-  {
-    lectureStart: new Date(`${today}T10:00`),
-    subject: `LinearAlgebra`,
-    teacher: `Mr.Mike`,
-    room: `Room101, Build1`,
-    durationMs: 40*60*1000
-  },
-  {
-    lectureStart: new Date(`${today}T11:00`),
-    subject: `LinearAlgebra`,
-    teacher: `Mr.Mike`,
-    room: `Room101, Build1`,
-    durationMs: 40*60*1000
-  },
-  {
-    lectureStart: new Date(`${today}T12:00`),
-    subject: `LinearAlgebra`,
-    teacher: `Mr.Mike`,
-    room: `Room101, Build1`,
-    durationMs: 40*60*1000
-  },
-  {
-    lectureStart: new Date(`${today}T13:00`),
-    subject: `LinearAlgebra`,
-    teacher: `Mr.Mike`,
-    room: `Room101, Build1`,
-    durationMs: 40*60*1000
-  },
-  {
-    lectureStart: new Date(`${today}T14:00`),
-    subject: `LinearAlgebra`,
-    teacher: `Mr.Mike`,
-    room: `Room101, Build1`,
-    durationMs: 40*60*1000
-  },
-  {
-    lectureStart: new Date(`${today}T15:00`),
-    subject: `LinearAlgebra`,
-    teacher: `Mr.Mike`,
-    room: `Room101, Build1`,
-    durationMs: 40*60*1000
-  },
+    lectureStart: new Date(`${TODAY}T18:30`),
+    subject: `教育科研方法`,
+    teacher: `沈书生`,
+    room: `电教楼213`,
+    durationMs: 140*60*1000
+  }
 ]
