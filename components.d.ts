@@ -8,10 +8,9 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Lecture: typeof import('./src/components/Lecture.vue')['default']
+    Popup: typeof import('./src/components/Popup.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TimeInput: typeof import('./src/components/TimeInput.vue')['default']
     TimePointer: typeof import('./src/components/TimePointer.vue')['default']
-    Warning: typeof import('./src/components/Warning.vue')['default']
   }
 }

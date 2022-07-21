@@ -1,59 +1,37 @@
 <script setup lang="ts">
-import { checkStorage, getLocalStorage } from '~/utils/checkStorage'
+import { schedule } from '~/utils/mock'
+import { iLecture } from '~/utils/types';
 
-interface iNewTime {
-  time: Date
+let thisInfo: iLecture | undefined = $ref()
+
+const lectureInfo = (info: iLecture): void => {
+  thisInfo = info
 }
 
-interface iWarningMessage {
-  message: string
+const popdown = () => {
+  thisInfo = undefined
 }
 
-let defaultStartTime: Date | string = $ref(new Date())
-let defaultEndTime: Date | string = $ref(new Date())
-let toGiveMessage: string = $ref('')
-
-onBeforeMount(() => {
-  if (checkStorage('startTime', 'endTime')) {
-    const { startTime, endTime } = getLocalStorage('startTime', 'endTime')
-    defaultStartTime = startTime
-    defaultEndTime = endTime
-  }
-  else {
-    // no storage
-    defaultStartTime = new Date(new Date().toLocaleDateString())
-    defaultEndTime = new Date(new Date(new Date().toLocaleDateString()).getTime() + 23 * 60 * 60 * 1000 + 59 * 60 * 1000)
-  }
+let bottom = $computed(() => {
+  return thisInfo ? 6 : -6
 })
-
-const updateStartTime = (newTime: iNewTime) => {
-  defaultStartTime = newTime.time
-}
-
-const updateEndTime = (newTime: iNewTime) => {
-  defaultEndTime = newTime.time
-}
-
-const giveWarningMessage = (warningMessage: iWarningMessage) => {
-  toGiveMessage = warningMessage.message
-}
 </script>
 
 <template>
-  <div flex flex-col h-10>
+  <div flex flex-col h-6xl>
     <h2 mb-1 text-7>
-      TimePointer
+      ClassPointer
     </h2>
     <h3 mb-5>
-      Show current time position by selecting two time points.
+      Show current time position in class schedule.
     </h3>
-    <Warning :message="toGiveMessage" self-center m-5 />
-    <TimeInput @new-end-time="updateEndTime" @new-start-time="updateStartTime" />
-    <TimePointer
-      :start-time="new Date(defaultStartTime)"
-      :end-time="new Date(new Date(defaultEndTime))"
-      self-center
-      @time-warn="giveWarningMessage"
-    />
+    <div flex flex-row justify-center>
+      <TimePointer v-for="(item, index) in schedule" :key="index" :schedule="item"
+        :is-today="new Date().getDate() === new Date(item[0].lectureStart).getDate()" :start-time="item[0].dayStart"
+        :end-time="item[0].dayEnd" self-center @give-lecture-info="lectureInfo" />
+    </div>
+    <a absolute :style="`transition: all 1s; bottom: ${bottom}rem`" @click="popdown"
+      h-10 w-10 self-center i-carbon-close>&nbsp;</a>
+    <Popup self-center :lecture-info="thisInfo" />
   </div>
 </template>

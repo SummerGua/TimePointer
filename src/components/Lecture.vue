@@ -20,7 +20,8 @@ const durationHeight = computed(() => {
 </script>
 
 <template>
-  <div :style="{ top: `${lectureStartPos}%`, height: `${durationHeight}%` }" w-full absolute text-3 border-rounded border-dotted border-1>
+  <div :style="{ top: `${lectureStartPos}%`, height: `${durationHeight}%` }" w-full absolute text-3 border-rounded
+    border-dotted border-1>
     <span>{{ subject }}</span>
     <div display-none>
       {{ lectureStart }}
