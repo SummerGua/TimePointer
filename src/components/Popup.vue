@@ -6,11 +6,11 @@ let { lectureInfo } = defineProps<{
 }>()
 
 let bottom = $computed(() => {
-  return lectureInfo ? 0 : -20
+  return lectureInfo ? 0 : -15
 })
 </script>
 <template>
-  <div w-full pb-3 pt-3 bg-gray-100 absolute :style="`transition: all .8s; bottom: ${bottom}rem`" flex flex-col justify-center>
+  <div dark:bg-gray-500 dark:text-white w-full pb-3 pt-3 bg-gray-100 absolute :style="`transition: all .8s; bottom: ${bottom}rem`" flex flex-col justify-center>
     <span>{{ lectureInfo?.subject }}</span>
     <span v-show="lectureInfo?.teacher !== ''">{{ lectureInfo?.teacher }}</span>
     <span v-show="lectureInfo?.room !== ''">{{ lectureInfo?.room }}</span>

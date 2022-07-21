@@ -17,26 +17,27 @@ let bottom = $computed(() => {
 })
 
 let lineBottom = $computed(() => {
-  return thisInfo ? -4 : -20
+  return thisInfo ? -4.5 : -20
 })
 </script>
 
 <template>
   <div flex flex-col h-6xl>
-    <h2 mb-1 text-7>
+    <h2 text-7>
       ClassPointer
     </h2>
+    <Dark self-center />
     <h3 mb-5>
       Show current time position in class schedule.
     </h3>
     <div flex flex-row justify-center>
-      <TimePointer v-for="(item, index) in schedule" :key="index" :schedule="item"
+      <TimePointer dark:color-black v-for="(item, index) in schedule" :key="index" :schedule="item"
         :is-today="new Date().getDay() === new Date(item[0].lectureStart).getDay()" :start-time="item[0].dayStart"
         :end-time="item[0].dayEnd" self-center @give-lecture-info="lectureInfo" />
     </div>
-    <a z-index="10" cursor-pointer absolute :style="`transition: all 0.5s linear; bottom: ${bottom}rem`" @click="popdown"
-      h-10 w-10 self-center i-carbon-close>&nbsp;</a>
-    <div w-0 h-50 self-center absolute border-l-1 border-black :style="`transition: all 0.5s linear; bottom: ${lineBottom}rem`"></div>
-    <Popup self-center :lecture-info="thisInfo" />
+    <a dark:text-white z-index="10" cursor-pointer absolute :style="`transition: all 0.5s; bottom: ${bottom}rem`" @click="popdown"
+      h-10 w-10 self-center i-carbon-close-outline>&nbsp;</a>
+    <div w-0 h-50 self-center absolute border-l-1 border-black dark:border-white :style="`transition: all 0.5s; bottom: ${lineBottom}rem`"></div>
+      <Popup border-rounded self-center :lecture-info="thisInfo" />
   </div>
 </template>

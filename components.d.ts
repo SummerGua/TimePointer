@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Dark: typeof import('./src/components/Dark.vue')['default']
     Lecture: typeof import('./src/components/Lecture.vue')['default']
     Popup: typeof import('./src/components/Popup.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
