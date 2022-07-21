@@ -13,7 +13,11 @@ const popdown = () => {
 }
 
 let bottom = $computed(() => {
-  return thisInfo ? 6 : -6
+  return thisInfo ? 8 : -6
+})
+
+let lineBottom = $computed(() => {
+  return thisInfo ? -4 : -20
 })
 </script>
 
@@ -27,11 +31,12 @@ let bottom = $computed(() => {
     </h3>
     <div flex flex-row justify-center>
       <TimePointer v-for="(item, index) in schedule" :key="index" :schedule="item"
-        :is-today="new Date().getDate() === new Date(item[0].lectureStart).getDate()" :start-time="item[0].dayStart"
+        :is-today="new Date().getDay() === new Date(item[0].lectureStart).getDay()" :start-time="item[0].dayStart"
         :end-time="item[0].dayEnd" self-center @give-lecture-info="lectureInfo" />
     </div>
-    <a absolute :style="`transition: all 1s; bottom: ${bottom}rem`" @click="popdown"
+    <a z-index="10" cursor-pointer absolute :style="`transition: all 0.5s linear; bottom: ${bottom}rem`" @click="popdown"
       h-10 w-10 self-center i-carbon-close>&nbsp;</a>
+    <div w-0 h-50 self-center absolute border-l-1 border-black :style="`transition: all 0.5s linear; bottom: ${lineBottom}rem`"></div>
     <Popup self-center :lecture-info="thisInfo" />
   </div>
 </template>

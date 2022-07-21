@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { iLecture } from "~/utils/types"
+
 const {
   startTime,
   endTime,
@@ -43,10 +44,10 @@ const showLectureInfo = (lectureInfo: iLecture) => {
 
 <template>
   <div w-20 relative text-center flex flex-col justify-center>
-    <div w-17 h-120 bg-gray-100 flex flex-col relative self-center>
+    <div w-17 h-140 bg-gray-100 flex flex-col relative self-center>
       <lecture v-for="item in schedule" :key="item.lectureStart.toString()" :day-start="startTime" :day-end="endTime"
         :lecture-start="item.lectureStart" :subject="item.subject" :teacher="item.teacher" :room="item.room"
-        :duration-ms="item.durationMs" cursor-pointer @click="showLectureInfo(item)" />
+        :lecture-end="item.lectureEnd" cursor-pointer @click="showLectureInfo(item)" />
     </div>
     <div v-if="isToday" :title="currentTime" absolute border-t-3 h-3 w-20
       :style="{ top: `${progress}%`, borderColor: `rgba(0,0,0,${borderOpacity})` }">

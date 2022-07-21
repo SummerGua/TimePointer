@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const { dayStart, dayEnd, lectureStart, durationMs, subject, teacher, room } = defineProps<{
+const { dayStart, dayEnd, lectureStart, lectureEnd, subject } = defineProps<{
   dayStart: Date;
   dayEnd: Date;
   lectureStart: Date;
-  durationMs: number;
+  lectureEnd: Date;
   subject: string;
   teacher: string;
   room: string;
@@ -14,20 +14,15 @@ const lectureStartPos = computed(() => {
 })
 
 const durationHeight = computed(() => {
-  return (durationMs / (dayEnd.getTime() - dayStart.getTime())) * 100
+  return ((lectureEnd.getTime() - lectureStart.getTime()) / (dayEnd.getTime() - dayStart.getTime())) * 100
 })
 
 </script>
 
 <template>
-  <div :style="{ top: `${lectureStartPos}%`, height: `${durationHeight}%` }" w-full absolute text-3 border-rounded
-    border-dotted border-1>
+  <div
+    :style="{ top: `${lectureStartPos}%`, borderColor: '#78938A', height: `${durationHeight}%`, backgroundColor: subject === '午休' ? '#B7D3DF' : subject === '晚餐' ? '#DFE8CC' : '#ffeaea' }"
+    w-full absolute text-3 border-rounded flex flex-col justify-center>
     <span>{{ subject }}</span>
-    <div display-none>
-      {{ lectureStart }}
-      {{ durationMs }}
-      {{ teacher }}
-      {{ room }}
-    </div>
   </div>
 </template>
