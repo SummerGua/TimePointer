@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { iLecture } from '~/utils/types';
+import type { iLecture } from '~/utils/types'
 
-let { lectureInfo } = defineProps<{
+const { lectureInfo } = defineProps<{
   lectureInfo: iLecture | undefined
 }>()
 
-let bottom = $computed(() => {
+const bottom = $computed(() => {
   return lectureInfo ? 0 : -15
 })
 </script>
+
 <template>
-  <div dark:bg-gray-500 dark:text-white w-full pb-3 pt-3 bg-gray-100 absolute :style="`transition: all .8s; bottom: ${bottom}rem`" flex flex-col justify-center>
-    <span>{{ lectureInfo?.subject }}</span>
-    <span v-show="lectureInfo?.teacher !== ''">{{ lectureInfo?.teacher }}</span>
-    <span v-show="lectureInfo?.room !== ''">{{ lectureInfo?.room }}</span>
+  <div text-black w-90vw pb-3 pt-3 bg-white absolute border-rounded-4 :style="`transition: all .8s; bottom: ${bottom}rem; background: linear-gradient(to bottom, #d0d6e9, #ffffff);`" flex flex-col justify-center>
+    <span font-bold>{{ lectureInfo?.subject }}</span>
+    <span v-show="lectureInfo?.teacher !== ''" text-3>{{ lectureInfo?.teacher }}</span>
+    <span v-show="lectureInfo?.room !== ''" font-bold text-3>{{ lectureInfo?.room }}</span>
     <span>
-      时间：
       {{ lectureInfo?.lectureStart.toLocaleDateString('zh-CN', { hour: '2-digit', minute: '2-digit' }) }}
-      to
-      {{ lectureInfo?.lectureEnd.toLocaleDateString('zh-CN', { hour: '2-digit', minute: '2-digit' })}}
+      >>
+      {{ lectureInfo?.lectureEnd.toLocaleDateString('zh-CN', { hour: '2-digit', minute: '2-digit' }) }}
     </span>
   </div>
 </template>
