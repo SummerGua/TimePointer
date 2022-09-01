@@ -153,6 +153,15 @@ export const schedule: iLecture[][] = [
       dayEnd: TIMESHEET.WED.end,
     },
     {
+      subject: '网络应用开发技术',
+      teacher: '田俊华',
+      room: '田北204',
+      lectureStart: getTime(SCHOOL_START_DAY, '13:30', ONE_DAY * 2),
+      lectureEnd: getTime(SCHOOL_START_DAY, '15:50', ONE_DAY * 2),
+      dayStart: TIMESHEET.WED.start,
+      dayEnd: TIMESHEET.WED.end,
+    },
+    {
       subject: '晚餐',
       teacher: '',
       room: '',
